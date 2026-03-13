@@ -1,0 +1,48 @@
+pipeline {
+
+    agent any
+
+    tools {
+        jdk 'jdk21'
+        maven 'maven3'
+    }
+
+    options {
+        timestamps()
+        timeout(time: 20, unit: 'MINUTES')
+    }
+
+    environment {
+        BROWSER = 'chrome'
+        HEADLESS = 'true'
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build & Test') {
+            steps {
+                sh 'mvn -B clean test'
+            }
+        }
+
+        stage('Allure') {
+            steps {
+                sh 'mvn -B allure:report'
+            }
+        }
+    }
+
+    post {
+
+        always {
+            // ensure report exists even if tests fail
+            sh 'mvn -B allure:report || true'
+        }
+    }
+}

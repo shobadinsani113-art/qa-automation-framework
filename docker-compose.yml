@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+
+  qa-tests:
+
+    build: Dockerfile.java
+
+    working_dir: /app
+
+    init: true
+
+    restart: "no"
+
+    environment:
+      browser: chrome
+      headless: true
+
+    volumes:
+      - ./allure-results:/app/allure-results
+      - ./allure-report:/app/allure-report
+
+    tty: true
+
+    command: mvn -B clean test allure:report

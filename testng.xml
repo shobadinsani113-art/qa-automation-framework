@@ -1,0 +1,47 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite
+        name="QA Suite"
+        parallel="tests"
+        thread-count="2"
+        verbose="1"
+        preserve-order="false">
+
+    <!-- =====================
+         Listeners
+         ===================== -->
+
+    <listeners>
+        <listener class-name="framework.listeners.TestListener"/>
+    </listeners>
+
+
+    <!-- =====================
+         Tests
+         ===================== -->
+
+    <test name="AB Testing">
+        <classes>
+            <class name="tests.abtesting.ABTestingTest"/>
+        </classes>
+    </test>
+
+    <test name="Add Remove">
+        <classes>
+            <class name="tests.addremove.AddRemoveTest"/>
+        </classes>
+    </test>
+
+    <test name="Basic Auth">
+        <classes>
+            <class name="tests.basicauth.BasicAuthTest"/>
+        </classes>
+    </test>
+
+    <test name="Broken Images">
+        <classes>
+            <class name="tests.brokenimages.BrokenImagesTest"/>
+        </classes>
+    </test>
+
+</suite>
